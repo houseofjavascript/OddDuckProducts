@@ -1,0 +1,77 @@
+.grid-container {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+
+
+grid-template-areas: 
+  "header header header"
+  "sidebar content content"
+  "sidebar content content"
+  "sidebar content content"
+  "sidebar content content"
+  "footer footer footer"
+}
+
+.grid-container div {
+  border: 7px solid black;
+  font-size: 1.5em;
+  padding: 30px;
+}
+
+.grid-item1 {
+  grid-area: header;
+
+
+}
+main h1{
+  font-family: 'Rubik 80s Fade', cursive;
+  position: relative;
+  font-size: 6vw;
+  color:rgb(170, 157, 158);
+  -webkit-text-stroke: 0.3vw rgb(36, 150, 108);
+  text-transform: uppercase;
+
+}
+
+h1::before
+{
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    color: blue;
+    -webkit-text-stroke: 0vw rgb(16, 117, 31);
+    border-right: 2px solid rgb(124, 30, 38);
+    overflow: hidden;
+    animation: animate 6s linear infinite;
+}
+
+
+@keyframes animate
+{
+  0%,10%,100%
+    {
+      width: 0;
+    }
+    70%,90%
+    {
+      width: 100%;
+    }
+}
+.grid-item2 {
+  grid-area: sidebar;
+}
+
+.grid-item3 {
+  grid-area: content;
+}
+
+.grid-item4 {
+  grid-area: footer;
+}
+
