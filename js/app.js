@@ -14,8 +14,9 @@ let imageOne = document.getElementById('img-one');
 let imageTwo = document.getElementById('img-two');
 let imageThree = document.getElementById('img-three');
 let resultsBtn = document.getElementById('show-results-btn');
-let resultsList = document.getElementById('results-container');
+//let resultsList = document.getElementById('results-container');
 let imgContainer = document.getElementById('img-container');
+let ctx = document.getElementById('chart');
 
 
 // *****Constuctors****
@@ -30,23 +31,32 @@ function Duck(name, imgExtension = 'jpg') {
 
 // ***** Helpers ****
 
+
 function randomIndex() {
   return Math.floor(Math.random() * duckArray.length);
 }
 
-
+let indexArray = [];
 function renderImg() {
-  let imageOneIndex = randomIndex();
-  let imageTwoIndex = randomIndex();
-  let imageThreeIndex = randomIndex();
-
-  while (imageOneIndex === imageTwoIndex || imageTwoIndex === imageThreeIndex || imageOneIndex === imageThreeIndex) {
-    imageTwoIndex = randomIndex();
+  while (indexArray.length < 6) {
+    let randomNum = randomIndex();
+    if (!indexArray.includes(randomNum)) {
+      indexArray.push(randomNum);
+    }
   }
 
-  imageOne.src = duckArray[imageOneIndex].img;
-  imageTwo.src = duckArray[imageTwoIndex].img;
-  imageThree.src = duckArray[imageThreeIndex].img;
+
+  let imageOneIndex = indexArray.shift();
+  let imageTwoIndex = indexArray.shift();
+  let imageThreeIndex = indexArray.shift();
+
+  // while (imageOneIndex === imageTwoIndex || imageTwoIndex === imageThreeIndex || imageOneIndex === imageThreeIndex) {
+  //   imageTwoIndex = randomIndex();
+  //   imageThreeIndex = randomIndex();
+
+  imageOne.src = duckArray[imageOneIndex].image;
+  imageTwo.src = duckArray[imageTwoIndex].image;
+  imageThree.src = duckArray[imageThreeIndex].image;
   imageOne.title = duckArray[imageOneIndex].name;
   imageTwo.title = duckArray[imageTwoIndex].name;
   imageThree.title = duckArray[imageThreeIndex].name;
@@ -57,7 +67,49 @@ function renderImg() {
   duckArray[imageOneIndex].views++;
   duckArray[imageTwoIndex].views++;
   duckArray[imageThreeIndex].views++;
+
 }
+
+
+//helper function ********
+
+function renderChart() {
+  let duckNames = [];
+  let duckVotes = [];
+  let duckViews = [];
+
+  for (let i = 0; i < duckArray.length; i++) {
+    duckNames.push(duckArray[i].name);
+    duckVotes.push(duckArray[i].votes);
+    duckViews.push(duckArray[i].views);
+  }
+
+  let chartObj = {
+    type: 'bar',
+    data: {
+      labels: duckNames,
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      },
+      {
+        label: '# of Views',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  new Chart(ctx, chartObj);
+}
+
 
 
 //*** event listener
@@ -72,18 +124,21 @@ function handleclick(event) {
   votinground--;
   renderImg();
   if (votinground === 0) {
-    imgContainer.removeEventlister('click', handleclick);
+    imgContainer.removeEventListener('click', handleclick);
   }
 }
 
 function handleShowResults() {
   if (votinground === 0) {
-    for (let i = 0; i < duckArray.length; i++) {
-      let liElem = document.createElement('li');
-      liElem.textContent = `${duckArray[i].name} had ${duckArray[i].votes} and was seen ${duckArray[i].views} times`;
-      resultsList.appendChild(liElem);
-    }
-    resultsBtn.removeEventlister('click', handleShowResults);
+    renderChart();
+
+
+    // for (let i = 0; i < duckArray.length; i++) {
+    //   let liElem = document.createElement('li');
+    //   liElem.textContent = `${duckArray[i].name} had ${duckArray[i].votes} and was seen ${duckArray[i].views} times`;
+    //   resultsList.appendChild(liElem);
+    // }
+    // resultsBtn.removeEventlistener('click', handleShowResults);
   }
 }
 
@@ -107,7 +162,7 @@ let sweepPic = new Duck('sweep', 'png');
 let tauntaunPic = new Duck('tauntaun');
 let unicornPic = new Duck('unicorn');
 let watercanPic = new Duck('water-can');
-let wineglassPic = new Duck('wineglass');
+let wineglassPic = new Duck('wine-glass');
 
 
 duckArray.push(bagPic, bananaPic, bathroomPic, bootsPic, breakfastPic, bubblegumPic, chairPic, cthulhuPic, dogduckPic, dragonPic, penPic, petsweepPic, scissorsPic, sharkPic, sweepPic, tauntaunPic, unicornPic, watercanPic, wineglassPic);
@@ -115,7 +170,7 @@ duckArray.push(bagPic, bananaPic, bathroomPic, bootsPic, breakfastPic, bubblegum
 
 renderImg();
 
-imgContainer.addEventLister('click', handleclick);
+imgContainer.addEventListener('click', handleclick);
 resultsBtn.addEventListener('click', handleShowResults);
 
 console.log(bagPic);

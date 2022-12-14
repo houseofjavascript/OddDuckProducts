@@ -10,8 +10,8 @@ grid-template-areas:
   "header header header"
   "sidebar content content"
   "sidebar content content"
-  "sidebar content content"
-  "sidebar content content"
+  "sidebar article article"
+  "sidebar article article"
   "footer footer footer"
 }
 
@@ -36,7 +36,7 @@ main h1{
 
 }
 
-h1::before
+/* h1::before
 {
     content: attr(data-text);
     position: absolute;
@@ -62,7 +62,7 @@ h1::before
     {
       width: 100%;
     }
-}
+} */
 .grid-item2 {
   grid-area: sidebar;
 }
@@ -72,6 +72,21 @@ h1::before
 }
 
 .grid-item4 {
+  grid-area: article;
+}
+
+.grid-item5 {
   grid-area: footer;
 }
 
+
+li {
+  background-color: white;
+
+}
+
+img {
+  height: 400px;
+  width: 400px;
+  border-color: blueviolet;
+} 
