@@ -50,6 +50,8 @@ function renderImg() {
   let imageTwoIndex = indexArray.shift();
   let imageThreeIndex = indexArray.shift();
 
+  console.log(imageOneIndex, imageThreeIndex, imageTwoIndex);
+
   // while (imageOneIndex === imageTwoIndex || imageTwoIndex === imageThreeIndex || imageOneIndex === imageThreeIndex) {
   //   imageTwoIndex = randomIndex();
   //   imageThreeIndex = randomIndex();
@@ -89,14 +91,14 @@ function renderChart() {
     data: {
       labels: duckNames,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
+        label: 'Votes',
+        data: duckVotes,
+        borderWidth: 3
       },
       {
-        label: '# of Views',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
+        label: 'Views',
+        data: duckViews,
+        borderWidth: 3
       }]
     },
     options: {
@@ -125,6 +127,9 @@ function handleclick(event) {
   renderImg();
   if (votinground === 0) {
     imgContainer.removeEventListener('click', handleclick);
+    let stringifiedDucks = JSON.stringify(duckArray);
+
+    localStorage.setItem('myDucks',stringifiedDucks);
   }
 }
 
@@ -144,28 +149,38 @@ function handleShowResults() {
 
 // **** Executable Code *****
 
-let bagPic = new Duck('bag');
-let bananaPic = new Duck('banana');
-let bathroomPic = new Duck('bathroom');
-let bootsPic = new Duck('boots');
-let breakfastPic = new Duck('breakfast');
-let bubblegumPic = new Duck('bubblegum');
-let chairPic = new Duck('chair');
-let cthulhuPic = new Duck('cthulhu');
-let dogduckPic = new Duck('dog-duck');
-let dragonPic = new Duck('dragon');
-let penPic = new Duck('pen');
-let petsweepPic = new Duck('pet-sweep');
-let scissorsPic = new Duck('scissors');
-let sharkPic = new Duck('shark');
-let sweepPic = new Duck('sweep', 'png');
-let tauntaunPic = new Duck('tauntaun');
-let unicornPic = new Duck('unicorn');
-let watercanPic = new Duck('water-can');
-let wineglassPic = new Duck('wine-glass');
+let recievedDucks = localStorage.getItem('myDucks');
+
+let parsedDucks = JSON.parse(recievedDucks);
 
 
-duckArray.push(bagPic, bananaPic, bathroomPic, bootsPic, breakfastPic, bubblegumPic, chairPic, cthulhuPic, dogduckPic, dragonPic, penPic, petsweepPic, scissorsPic, sharkPic, sweepPic, tauntaunPic, unicornPic, watercanPic, wineglassPic);
+if(recievedDucks){
+  duckArray = parsedDucks;
+}else{
+  let bagPic = new Duck('bag');
+  let bananaPic = new Duck('banana');
+  let bathroomPic = new Duck('bathroom');
+  let bootsPic = new Duck('boots');
+  let breakfastPic = new Duck('breakfast');
+  let bubblegumPic = new Duck('bubblegum');
+  let chairPic = new Duck('chair');
+  let cthulhuPic = new Duck('cthulhu');
+  let dogduckPic = new Duck('dog-duck');
+  let dragonPic = new Duck('dragon');
+  let penPic = new Duck('pen');
+  let petsweepPic = new Duck('pet-sweep');
+  let scissorsPic = new Duck('scissors');
+  let sharkPic = new Duck('shark');
+  let sweepPic = new Duck('sweep', 'png');
+  let tauntaunPic = new Duck('tauntaun');
+  let unicornPic = new Duck('unicorn');
+  let watercanPic = new Duck('water-can');
+  let wineglassPic = new Duck('wine-glass');
+
+
+  duckArray.push(bagPic, bananaPic, bathroomPic, bootsPic, breakfastPic, bubblegumPic, chairPic, cthulhuPic, dogduckPic, dragonPic, penPic, petsweepPic, scissorsPic, sharkPic, sweepPic, tauntaunPic, unicornPic, watercanPic, wineglassPic);
+
+}
 
 
 renderImg();
@@ -173,7 +188,7 @@ renderImg();
 imgContainer.addEventListener('click', handleclick);
 resultsBtn.addEventListener('click', handleShowResults);
 
-console.log(bagPic);
+
 
 
 
