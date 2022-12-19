@@ -41,8 +41,6 @@ main h2{
   position: relative;
   font-size: 2vw;
   color: #b8c5ca 100%;
-  -webkit-text-stroke: 0.3vw rgb(43, 60, 188); 
-  text-transform: uppercase; 
   display: flex;
   justify-content: center;
 
