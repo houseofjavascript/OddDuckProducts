@@ -93,12 +93,16 @@ function renderChart() {
       datasets: [{
         label: 'Votes',
         data: duckVotes,
-        borderWidth: 3
+        borderWidth: 3,
+        backgroundColor: 'rgb(17, 17, 194)',
+        padding: 5,
       },
       {
         label: 'Views',
         data: duckViews,
-        borderWidth: 3
+        borderWidth: 3,
+        backgroundColor: 'rgb(44, 202, 65)',
+        padding: 5,
       }]
     },
     options: {

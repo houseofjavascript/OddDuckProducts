@@ -90,14 +90,20 @@ h1::before
 img {
   height: 400px;
   width: 400px;
+  position: relative;
   border: 5px solid rgb(18, 96, 49);
   display:inline-block;
-  justify-content:space-between
+  justify-content:center;
 } 
 
 button {
-  position: relative;
-  display: flex;
-  justify-content: center;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
